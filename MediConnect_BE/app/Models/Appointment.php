@@ -25,4 +25,14 @@ class Appointment extends Model
         return $this->belongsTo(User::class, 'patient_id');
     }
 
+    public function doctorProfile()
+    {
+        return $this->belongsTo(DoctorProfile::class, 'doctor_profile_id');
+    }
+
+    public function clinicBranch()
+    {
+        return $this->belongsTo(ClinicBranch::class, 'clinic_branch_id');
+    }
+
 }

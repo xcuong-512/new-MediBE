@@ -74,12 +74,22 @@ class AppointmentController extends Controller
     {
         $appointments = Appointment::query()
             ->where('patient_id', $request->user()->id)
+            ->with([
+                'doctorProfile.user:id,name,avatar_url',
+                'doctorProfile.specialty:id,name',
+                'clinicBranch:id,name,address',
+            ])
             ->orderByDesc('date')
             ->orderByDesc('start_time')
             ->paginate(10);
 
-        return response()->json($appointments);
+        return response()->json([
+            'success' => true,
+            'message' => 'OK',
+            'data' => $appointments
+        ]);
     }
+
 
     public function cancel($id, Request $request)
     {

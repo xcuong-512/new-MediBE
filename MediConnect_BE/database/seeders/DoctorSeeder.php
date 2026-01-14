@@ -44,28 +44,28 @@ class DoctorSeeder extends Seeder
 
         $doctors = [
             [
-                'name' => 'BS. Nguyễn Minh Anh',
+                'name' => 'Nguyễn Trần Xuân Cường',
                 'email' => 'doctor1@mediconnect.local',
                 'specialty_id' => $specialties[0]->id,
-                'avatar_url' => 'https://images.pexels.com/photos/8460157/pexels-photo-8460157.jpeg?auto=compress&cs=tinysrgb&w=400',
+                'avatar_url' => 'https://images.pexels.com/photos/6749768/pexels-photo-6749768.jpeg?auto=compress&cs=tinysrgb&w=400',
                 'experience_years' => 9,
-                'fee' => 450000,
+                'fee' => 2500000,
             ],
             [
-                'name' => 'BS. Trần Quốc Huy',
+                'name' => 'BS. Nguyễn Bảo Trân',
                 'email' => 'doctor2@mediconnect.local',
                 'specialty_id' => $specialties[1]->id,
-                'avatar_url' => 'https://images.pexels.com/photos/6129683/pexels-photo-6129683.jpeg?auto=compress&cs=tinysrgb&w=400',
+                'avatar_url' => 'https://images.pexels.com/photos/6749768/pexels-photo-6749768.jpeg?auto=compress&cs=tinysrgb&w=400',
                 'experience_years' => 7,
-                'fee' => 320000,
+                'fee' => 1500000,
             ],
             [
-                'name' => 'BS. Lê Hoàng Nam',
+                'name' => 'BS. Nguyễn Thảo Trang',
                 'email' => 'doctor3@mediconnect.local',
                 'specialty_id' => $specialties[2]->id,
-                'avatar_url' => 'https://images.pexels.com/photos/6749771/pexels-photo-6749771.jpeg?auto=compress&cs=tinysrgb&w=400',
+                'avatar_url' => 'https://images.pexels.com/photos/6749768/pexels-photo-6749768.jpeg?auto=compress&cs=tinysrgb&w=400',
                 'experience_years' => 10,
-                'fee' => 280000,
+                'fee' => 1200000,
             ],
             [
                 'name' => 'BS. Phạm Thùy Linh',
@@ -73,7 +73,7 @@ class DoctorSeeder extends Seeder
                 'specialty_id' => $specialties[0]->id,
                 'avatar_url' => 'https://images.pexels.com/photos/7580252/pexels-photo-7580252.jpeg?auto=compress&cs=tinysrgb&w=400',
                 'experience_years' => 6,
-                'fee' => 210000,
+                'fee' => 1100000,
             ],
             [
                 'name' => 'BS. Đặng Quang Vinh',
@@ -81,7 +81,7 @@ class DoctorSeeder extends Seeder
                 'specialty_id' => $specialties[1]->id,
                 'avatar_url' => 'https://images.pexels.com/photos/6749768/pexels-photo-6749768.jpeg?auto=compress&cs=tinysrgb&w=400',
                 'experience_years' => 13,
-                'fee' => 230000,
+                'fee' => 899000,
             ],
             [
                 'name' => 'BS. Võ Thanh Tùng',
@@ -89,7 +89,7 @@ class DoctorSeeder extends Seeder
                 'specialty_id' => $specialties[2]->id,
                 'avatar_url' => 'https://images.pexels.com/photos/8460171/pexels-photo-8460171.jpeg?auto=compress&cs=tinysrgb&w=400',
                 'experience_years' => 11,
-                'fee' => 300000,
+                'fee' => 699000,
             ],
         ];
 
@@ -117,7 +117,7 @@ class DoctorSeeder extends Seeder
                 ]
             );
 
-            foreach ([1,2,3,4,5] as $dow) {
+            foreach ([0,1,2,3,4,5,6] as $dow) {
                 DoctorWorkingHour::updateOrCreate(
                     [
                         'doctor_profile_id' => $profile->id,
