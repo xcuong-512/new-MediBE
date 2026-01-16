@@ -71,24 +71,47 @@ class AppointmentController extends Controller
     }
 
     public function myAppointments(Request $request)
-    {
-        $appointments = Appointment::query()
-            ->where('patient_id', $request->user()->id)
-            ->with([
-                'doctorProfile.user:id,name,avatar_url',
-                'doctorProfile.specialty:id,name',
-                'clinicBranch:id,name,address',
-            ])
-            ->orderByDesc('date')
-            ->orderByDesc('start_time')
-            ->paginate(10);
+{
+    $appointments = Appointment::query()
+        ->where('patient_id', $request->user()->id)
+        ->with([
+            'doctorProfile.user:id,name,avatar_url',
+            'doctorProfile.specialty:id,name',
+            'clinicBranch:id,name,address',
+        ])
+        ->orderByDesc('date')
+        ->orderByDesc('start_time')
+        ->paginate(10);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'OK',
-            'data' => $appointments
-        ]);
-    }
+    // normalize payload: add doctor + clinic_branch keys (FE dùng)
+    $appointments->getCollection()->transform(function ($appt) {
+        return [
+            'id' => $appt->id,
+            'appointment_code' => $appt->appointment_code,
+            'status' => $appt->status,
+            'type' => $appt->type,
+            'date' => $appt->date,
+            'start_time' => $appt->start_time,
+            'end_time' => $appt->end_time,
+
+            'doctor' => [
+                'consultation_fee' => $appt->doctorProfile?->consultation_fee,
+                'experience_years' => $appt->doctorProfile?->experience_years,
+                'user' => $appt->doctorProfile?->user,
+                'specialty' => $appt->doctorProfile?->specialty,
+            ],
+
+            'clinic_branch' => $appt->clinicBranch,
+        ];
+    });
+
+    return response()->json([
+        'success' => true,
+        'message' => 'OK',
+        'data' => $appointments
+    ]);
+}
+
 
 
     public function cancel($id, Request $request)
@@ -125,4 +148,37 @@ class AppointmentController extends Controller
 
         return ApiResponse::success(null, 'Đã hủy lịch');
     }
+
+    public function payDeposit($id, Request $request)
+    {
+        $appointment = Appointment::query()
+            ->where('id', $id)
+            ->where('patient_id', $request->user()->id)
+            ->firstOrFail();
+
+        if ($appointment->status === 'cancelled') {
+            return ApiResponse::error('Lịch đã bị hủy', null, 409);
+        }
+
+        if ($appointment->status === 'deposit_paid') {
+            return ApiResponse::success($appointment, 'Đã thanh toán đặt cọc trước đó');
+        }
+
+        DB::transaction(function () use ($appointment, $request) {
+            $appointment->update([
+                'status' => 'deposit_paid',
+            ]);
+
+            AppointmentService::logStatus(
+                $appointment,
+                $request->user()->id,
+                null,
+                'deposit_paid',
+                'Thanh toán đặt cọc (demo)'
+            );
+        });
+
+        return ApiResponse::success($appointment->fresh(), 'Thanh toán đặt cọc thành công');
+    }
+
 }

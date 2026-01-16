@@ -22,21 +22,15 @@ Route::get('/doctors/{id}/reviews', [ReviewController::class, 'doctorReviews']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-
-    // Auth user
     Route::get('/auth/me', [AuthController::class, 'me']);
     Route::post('/auth/logout', [AuthController::class, 'logout']);
-
-    /**
-     * Patient routes
-     */
     Route::middleware('role:patient')->group(function () {
-        Route::post('/reviews', [ReviewController::class, 'store']);
-        // Appointment booking
         Route::post('/appointments', [AppointmentController::class, 'store']);
         Route::get('/appointments/my', [AppointmentController::class, 'myAppointments']);
         Route::patch('/appointments/{id}/cancel', [AppointmentController::class, 'cancel']);
+        Route::patch('/appointments/{id}/deposit', [AppointmentController::class, 'payDeposit']);
     });
+
 
     Route::middleware('role:doctor')->group(function () {
         Route::get('/doctor/appointments', [DoctorAppointmentController::class, 'index']);
