@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\DoctorAppointmentController;
 use App\Http\Controllers\Api\AdminAppointmentController;
 use App\Http\Controllers\Api\AdminSlotController;
 use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\Api\AdminDashboardController;
 
 Route::get('/specialties', [SpecialtyController::class, 'index']);
 Route::get('/doctors', [DoctorController::class, 'index']);
@@ -20,6 +21,7 @@ Route::get('/doctors/{id}/slots', [SlotController::class, 'availableSlots']);
 Route::get('/doctors/{id}/available-slots', [SlotController::class, 'availableSlots']);
 Route::get('/doctors/{id}/reviews', [ReviewController::class, 'doctorReviews']);
 Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/register', [AuthController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/me', [AuthController::class, 'me']);
@@ -38,7 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:admin')->group(function () {
         Route::post('/admin/slots/generate', [AdminSlotController::class, 'generate']);
-
+        Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
         Route::patch('/admin/appointments/{id}/confirm', [AdminAppointmentController::class, 'confirm']);
         Route::patch('/admin/appointments/{id}/complete', [AdminAppointmentController::class, 'complete']);
     });
