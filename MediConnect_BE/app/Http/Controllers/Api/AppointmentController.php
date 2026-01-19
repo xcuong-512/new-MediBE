@@ -26,7 +26,6 @@ class AppointmentController extends Controller
 
         return DB::transaction(function () use ($data, $user) {
 
-            // lock slot để tránh 2 người đặt cùng lúc
             $slot = DoctorSlot::query()
                 ->where('id', $data['slot_id'])
                 ->where('doctor_profile_id', $data['doctor_id'])
@@ -41,7 +40,6 @@ class AppointmentController extends Controller
                 return ApiResponse::error('Slot đã được đặt hoặc không khả dụng', null, 409);
             }
 
-            // tạo appointment
             $appointment = Appointment::create([
                 'appointment_code' => 'MC-' . strtoupper(Str::random(8)),
                 'patient_id' => $user->id,
@@ -83,7 +81,6 @@ class AppointmentController extends Controller
         ->orderByDesc('start_time')
         ->paginate(10);
 
-    // normalize payload: add doctor + clinic_branch keys (FE dùng)
     $appointments->getCollection()->transform(function ($appt) {
         return [
             'id' => $appt->id,
