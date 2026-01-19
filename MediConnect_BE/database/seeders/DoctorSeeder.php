@@ -67,7 +67,7 @@ class DoctorSeeder extends Seeder
 
         $doctors = [
             [
-                'name' => 'Giáo sư, Tiến sĩ, Bác sĩ Kiều Đình Hùng',
+                'name' => 'Professor, Doctor, Physician Kieu Dinh Hung',
                 'email' => 'doctor1@mediconnect.local',
                 'specialty_id' => $specialties[0 % $specialties->count()]->id,
                 'avatar_url' => $avatars[0],
@@ -75,7 +75,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 900000,
             ],
             [
-                'name' => 'Tiến sĩ, Bác sĩ Phạm Chí Lăng',
+                'name' => 'Dr. Pham Chi Lang',
                 'email' => 'doctor2@mediconnect.local',
                 'specialty_id' => $specialties[1 % $specialties->count()]->id,
                 'avatar_url' => $avatars[1],
@@ -83,7 +83,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 700000,
             ],
             [
-                'name' => 'Thạc sĩ, Bác sĩ Nội trú Nguyễn Hữu Thảo',
+                'name' => "Master's Degree, Resident Doctor Nguyen Huu Thao",
                 'email' => 'doctor3@mediconnect.local',
                 'specialty_id' => $specialties[2 % $specialties->count()]->id,
                 'avatar_url' => $avatars[2],
@@ -91,7 +91,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 500000,
             ],
             [
-                'name' => 'Đại tá, Phó giáo sư, Tiến sĩ, Bác sĩ CKII Nguyễn Văn Quýnh',
+                'name' => 'Colonel, Associate Professor, Doctor of Science, Specialist Doctor II Nguyen Van Quynh',
                 'email' => 'doctor4@mediconnect.local',
                 'specialty_id' => $specialties[0 % $specialties->count()]->id,
                 'avatar_url' => $avatars[3],
@@ -99,7 +99,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 850000,
             ],
             [
-                'name' => 'Thạc sĩ, Bác sĩ Trần Thị Mai Thy',
+                'name' => 'Master of Science, Doctor Tran Thi Mai Thy',
                 'email' => 'doctor5@mediconnect.local',
                 'specialty_id' => $specialties[1 % $specialties->count()]->id,
                 'avatar_url' => $avatars[4],
@@ -107,7 +107,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 450000,
             ],
             [
-                'name' => 'PGS.TS. Bác sĩ Nguyễn Trọng Hưng',
+                'name' => 'Assoc. Prof. Dr. Nguyen Trong Hung',
                 'email' => 'doctor6@mediconnect.local',
                 'specialty_id' => $specialties[2 % $specialties->count()]->id,
                 'avatar_url' => $avatars[5],
@@ -115,7 +115,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 800000,
             ],
             [
-                'name' => 'Thầy thuốc ưu tú, Phó giáo sư, Tiến sĩ Nguyễn Xuân Thành',
+                'name' => 'Distinguished Physician, Associate Professor, Doctor Nguyen Xuan Thanh',
                 'email' => 'doctor7@mediconnect.local',
                 'specialty_id' => $specialties[0 % $specialties->count()]->id,
                 'avatar_url' => $avatars[6],
@@ -123,7 +123,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 800000,
             ],
             [
-                'name' => 'Bác sĩ Chuyên khoa II Võ Văn Mẫn',
+                'name' => 'Doctor Vo Van Man, Specialist II',
                 'email' => 'doctor8@mediconnect.local',
                 'specialty_id' => $specialties[1 % $specialties->count()]->id,
                 'avatar_url' => $avatars[7],
@@ -131,7 +131,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 600000,
             ],
             [
-                'name' => 'Thầy thuốc Ưu tú, Bác sĩ CKII Nguyễn Tiến Lãng',
+                'name' => 'Distinguished Physician, Specialist Doctor II Nguyen Tien Lang',
                 'email' => 'doctor9@mediconnect.local',
                 'specialty_id' => $specialties[2 % $specialties->count()]->id,
                 'avatar_url' => $avatars[8],
@@ -139,7 +139,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 650000,
             ],
             [
-                'name' => 'Bác sĩ Chuyên khoa II Lê Hồng Anh',
+                'name' => 'Doctor Le Hong Anh, Specialist II',
                 'email' => 'doctor10@mediconnect.local',
                 'specialty_id' => $specialties[0 % $specialties->count()]->id,
                 'avatar_url' => $avatars[9],
@@ -147,7 +147,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 600000,
             ],
             [
-                'name' => 'Phó Giáo sư, Tiến sĩ, Bác sĩ Nguyễn Thị Hoài An',
+                'name' => 'Associate Professor, Doctor Nguyen Thi Hoai An',
                 'email' => 'doctor11@mediconnect.local',
                 'specialty_id' => $specialties[1 % $specialties->count()]->id,
                 'avatar_url' => $avatars[10],
@@ -155,7 +155,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 800000,
             ],
             [
-                'name' => 'Giáo sư, Tiến sĩ Hà Văn Quyết',
+                'name' => 'Professor, Doctor Ha Van Quyet',
                 'email' => 'doctor12@mediconnect.local',
                 'specialty_id' => $specialties[2 % $specialties->count()]->id,
                 'avatar_url' => $avatars[11],
@@ -163,7 +163,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 900000,
             ],
             [
-                'name' => 'Thầy thuốc ưu tú, Tiến sĩ, Bác sĩ Nguyễn Văn Doanh',
+                'name' => 'Distinguished Physician, Doctor of Medicine Nguyen Van Doanh',
                 'email' => 'doctor13@mediconnect.local',
                 'specialty_id' => $specialties[0 % $specialties->count()]->id,
                 'avatar_url' => $avatars[12],
@@ -171,7 +171,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 700000,
             ],
             [
-                'name' => 'Tiến sĩ, Bác sĩ Chuyên khoa II Trà Anh Duy',
+                'name' => 'Dr. Tra Anh Duy, Specialist Doctor II',
                 'email' => 'doctor14@mediconnect.local',
                 'specialty_id' => $specialties[1 % $specialties->count()]->id,
                 'avatar_url' => $avatars[13],
@@ -179,7 +179,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 750000,
             ],
             [
-                'name' => 'Tiến sĩ, Bác sĩ chuyên khoa II Lê Quốc Việt',
+                'name' => 'Dr. Le Quoc Viet, Specialist Doctor II',
                 'email' => 'doctor15@mediconnect.local',
                 'specialty_id' => $specialties[2 % $specialties->count()]->id,
                 'avatar_url' => $avatars[14],
@@ -188,7 +188,7 @@ class DoctorSeeder extends Seeder
             ],
 
             [
-                'name' => 'Bác sĩ CKI Nguyễn Hoàng Long',
+                'name' => 'Doctor Nguyen Hoang Long, Specialist Level I',
                 'email' => 'doctor16@mediconnect.local',
                 'specialty_id' => $specialties[0 % $specialties->count()]->id,
                 'avatar_url' => $avatars[15],
@@ -196,7 +196,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 400000,
             ],
             [
-                'name' => 'Thạc sĩ, Bác sĩ Nguyễn Minh Khánh',
+                'name' => 'Master of Science, Doctor Nguyen Minh Khanh',
                 'email' => 'doctor17@mediconnect.local',
                 'specialty_id' => $specialties[1 % $specialties->count()]->id,
                 'avatar_url' => $avatars[16],
@@ -204,7 +204,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 450000,
             ],
             [
-                'name' => 'Bác sĩ CKII Trần Thị Thanh Hằng',
+                'name' => 'Doctor Tran Thi Thanh Hang, Specialist II',
                 'email' => 'doctor18@mediconnect.local',
                 'specialty_id' => $specialties[2 % $specialties->count()]->id,
                 'avatar_url' => $avatars[17],
@@ -212,7 +212,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 600000,
             ],
             [
-                'name' => 'Tiến sĩ, Bác sĩ Phan Anh Tuấn',
+                'name' => 'Dr. Phan Anh Tuan',
                 'email' => 'doctor19@mediconnect.local',
                 'specialty_id' => $specialties[0 % $specialties->count()]->id,
                 'avatar_url' => $avatars[18],
@@ -220,7 +220,7 @@ class DoctorSeeder extends Seeder
                 'fee' => 700000,
             ],
             [
-                'name' => 'Phó Giáo sư, Tiến sĩ, Bác sĩ Nguyễn Đức Thành',
+                'name' => 'Associate Professor, Doctor Nguyen Duc Thanh',
                 'email' => 'doctor20@mediconnect.local',
                 'specialty_id' => $specialties[1 % $specialties->count()]->id,
                 'avatar_url' => $avatars[19],
@@ -247,7 +247,7 @@ class DoctorSeeder extends Seeder
                     'specialty_id' => $doc['specialty_id'],
                     'experience_years' => $doc['experience_years'],
                     'consultation_fee' => $doc['fee'],
-                    'bio' => 'Bác sĩ có nhiều năm kinh nghiệm và tận tâm với bệnh nhân.',
+                    'bio' => 'The doctor has many years of experience and is dedicated to his patients.',
                     'rating_avg' => 0,
                     'total_reviews' => 0,
                 ]
