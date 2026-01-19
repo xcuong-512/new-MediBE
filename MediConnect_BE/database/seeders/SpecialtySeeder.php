@@ -11,16 +11,16 @@ class SpecialtySeeder extends Seeder
     public function run(): void
     {
         $specialties = [
-            'Nội khoa',
-            'Ngoại khoa',
-            'Da liễu',
-            'Tai mũi họng',
-            'Nhi khoa',
-            'Răng hàm mặt',
-            'Tim mạch',
-            'Thần kinh',
-            'Sản phụ khoa',
-            'Chấn thương chỉnh hình',
+            'Internal Medicine',      
+            'General Surgery',        
+            'Dermatology',        
+            'Otolaryngology',           
+            'Pediatrics',              
+            'Odonto-Stomatology',      
+            'Cardiology',             
+            'Neurology',           
+            'Obstetrics and Gynecology',
+            'Trauma and Orthopedics', 
         ];
 
         foreach ($specialties as $name) {

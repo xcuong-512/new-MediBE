@@ -20,18 +20,18 @@ class ClinicSeeder extends Seeder
 
         ClinicBranch::firstOrCreate([
             'clinic_id' => $clinic->id,
-            'name' => 'Cơ sở Quận 1',
+            'name' => 'District 1 Branch',
         ], [
-            'address' => 'Quận 1, TP.HCM',
+            'address' => 'District 1, Ho Chi Minh City',
             'open_time' => '08:00:00',
             'close_time' => '17:00:00',
         ]);
 
         ClinicBranch::firstOrCreate([
             'clinic_id' => $clinic->id,
-            'name' => 'Cơ sở Thủ Đức',
+            'name' => 'Thu Duc facility',
         ], [
-            'address' => 'Thủ Đức, TP.HCM',
+            'address' => 'Thu Duc, Ho Chi Minh City',
             'open_time' => '08:00:00',
             'close_time' => '17:00:00',
         ]);

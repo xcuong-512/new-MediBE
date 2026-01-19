@@ -30,8 +30,8 @@ class DoctorSeeder extends Seeder
         if (!$branch) {
             $branch = ClinicBranch::create([
                 'clinic_id' => $clinic->id,
-                'name' => 'Chi nhánh trung tâm',
-                'address' => 'Q.1, TP.HCM',
+                'name' => 'Central branch',
+                'address' => 'District 1, Ho Chi Minh City',
                 'phone' => '0900000000',
             ]);
         }

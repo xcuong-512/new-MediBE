@@ -12,7 +12,6 @@ class DoctorSlotSeeder extends Seeder
 {
     public function run(): void
     {
-        // Seed slot cho demo: 90 ngày tới
         $days = 90;
         $startDate = Carbon::today();
 
@@ -26,7 +25,6 @@ class DoctorSlotSeeder extends Seeder
             for ($d = 0; $d < $days; $d++) {
                 $date = $startDate->copy()->addDays($d);
 
-                // chỉ tạo slot cho đúng day_of_week
                 if ((int) $date->dayOfWeek !== (int) $wh->day_of_week) {
                     continue;
                 }
@@ -34,7 +32,6 @@ class DoctorSlotSeeder extends Seeder
                 $start = Carbon::parse($date->toDateString() . ' ' . $wh->start_time);
                 $end = Carbon::parse($date->toDateString() . ' ' . $wh->end_time);
 
-                // fallback slot minutes
                 $slotMinutes = (int) ($wh->slot_minutes ?? 30);
                 if ($slotMinutes <= 0) $slotMinutes = 30;
 
