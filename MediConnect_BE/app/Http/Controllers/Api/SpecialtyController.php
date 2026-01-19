@@ -10,11 +10,13 @@ class SpecialtyController extends Controller
     public function index()
     {
         $specialties = Specialty::query()
-            ->select('id', 'name', 'slug', 'description')
+            ->select('id', 'name')
             ->orderBy('name')
             ->get();
 
         return response()->json([
+            'success' => true,
+            'message' => 'OK',
             'data' => $specialties
         ]);
     }

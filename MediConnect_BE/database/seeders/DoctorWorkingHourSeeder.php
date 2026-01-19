@@ -15,7 +15,6 @@ class DoctorWorkingHourSeeder extends Seeder
         $doctors = DoctorProfile::all();
 
         foreach ($doctors as $doctor) {
-            // Mon-Fri (1-5), 8h-12h & 13h-17h
             foreach ([1,2,3,4,5] as $dow) {
                 DoctorWorkingHour::firstOrCreate([
                     'doctor_profile_id' => $doctor->id,

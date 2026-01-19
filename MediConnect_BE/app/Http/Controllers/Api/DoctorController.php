@@ -9,10 +9,8 @@ use App\Helpers\ApiResponse;
 use Carbon\Carbon;
 use App\Models\DoctorSlot;
 
-
 class DoctorController extends Controller
 {
-    // GET /api/doctors?specialty_id=&q=
     public function index(Request $request)
     {
         $q = $request->query('q');
@@ -38,7 +36,6 @@ class DoctorController extends Controller
         return ApiResponse::success($doctors, 'OK');
     }
 
-    // GET /api/doctors/{id}
     public function show($id)
     {
         $doctor = DoctorProfile::query()
@@ -49,10 +46,11 @@ class DoctorController extends Controller
             ])
             ->findOrFail($id);
 
-        return response()->json([
-            'data' => $doctor
-        ]);
+
+        return ApiResponse::success($doctor, 'OK');
     }
+
+
     public function nextAvailableDate(Request $request, $doctorId)
     {
         $data = $request->validate([
@@ -61,7 +59,7 @@ class DoctorController extends Controller
         ]);
 
         $from = Carbon::parse($data['from_date'])->startOfDay();
-        $days = $data['days'] ?? 30;
+        $days = (int) ($data['days'] ?? 30);
 
         $to = $from->copy()->addDays($days);
 
@@ -82,5 +80,4 @@ class DoctorController extends Controller
             'next_date' => $row->date
         ], 'OK');
     }
-
 }

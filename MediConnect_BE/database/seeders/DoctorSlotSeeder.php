@@ -39,13 +39,6 @@ class DoctorSlotSeeder extends Seeder
                     $slotStart = $start->format('H:i:s');
                     $slotEnd = $start->copy()->addMinutes($slotMinutes)->format('H:i:s');
 
-                    /**
-                     * ✅ IMPORTANT:
-                     * Unique index doctor_slots:
-                     * (doctor_profile_id, date, start_time)
-                     *
-                     * => MUST use these 3 fields for condition to avoid duplicate
-                     */
                     DoctorSlot::updateOrCreate(
                         [
                             'doctor_profile_id' => $wh->doctor_profile_id,

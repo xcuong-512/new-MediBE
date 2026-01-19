@@ -8,8 +8,13 @@ use App\Models\DoctorSlot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+
 use App\Services\AppointmentService;
 use App\Helpers\ApiResponse;
+
+use App\Mail\AppointmentBookedMail;
+use App\Mail\AppointmentDepositPaidMail;
 
 class AppointmentController extends Controller
 {
@@ -52,6 +57,7 @@ class AppointmentController extends Controller
                 'status' => 'pending',
                 'symptom_note' => $data['symptom_note'] ?? null,
             ]);
+
             AppointmentService::logStatus(
                 $appointment,
                 $user->id,
@@ -64,52 +70,69 @@ class AppointmentController extends Controller
                 'status' => 'booked'
             ]);
 
+            $appointment->load([
+                'doctorProfile.user:id,name,email',
+            ]);
+
+            try {
+                Mail::to($user->email)->send(new AppointmentBookedMail([
+                    'patient_name' => $user->name,
+                    'appointment_code' => $appointment->appointment_code,
+                    'doctor_name' => $appointment->doctorProfile?->user?->name ?? 'Doctor',
+                    'date' => $appointment->date,
+                    'start_time' => $appointment->start_time,
+                    'end_time' => $appointment->end_time,
+                    'type' => $appointment->type,
+                    'status' => $appointment->status,
+                ]));
+            } catch (\Throwable $e) {
+                logger()->error("Send booking mail failed: " . $e->getMessage());
+            }
+
             return ApiResponse::success($appointment, 'Đặt lịch thành công', 201);
         });
     }
 
     public function myAppointments(Request $request)
-{
-    $appointments = Appointment::query()
-        ->where('patient_id', $request->user()->id)
-        ->with([
-            'doctorProfile.user:id,name,avatar_url',
-            'doctorProfile.specialty:id,name',
-            'clinicBranch:id,name,address',
-        ])
-        ->orderByDesc('date')
-        ->orderByDesc('start_time')
-        ->paginate(10);
+    {
+        $appointments = Appointment::query()
+            ->where('patient_id', $request->user()->id)
+            ->with([
+                'doctorProfile.user:id,name,avatar_url',
+                'doctorProfile.specialty:id,name',
+                'clinicBranch:id,name,address',
+            ])
+            ->orderByDesc('date')
+            ->orderByDesc('start_time')
+            ->paginate(10);
 
-    $appointments->getCollection()->transform(function ($appt) {
-        return [
-            'id' => $appt->id,
-            'appointment_code' => $appt->appointment_code,
-            'status' => $appt->status,
-            'type' => $appt->type,
-            'date' => $appt->date,
-            'start_time' => $appt->start_time,
-            'end_time' => $appt->end_time,
+        $appointments->getCollection()->transform(function ($appt) {
+            return [
+                'id' => $appt->id,
+                'appointment_code' => $appt->appointment_code,
+                'status' => $appt->status,
+                'type' => $appt->type,
+                'date' => $appt->date,
+                'start_time' => $appt->start_time,
+                'end_time' => $appt->end_time,
 
-            'doctor' => [
-                'consultation_fee' => $appt->doctorProfile?->consultation_fee,
-                'experience_years' => $appt->doctorProfile?->experience_years,
-                'user' => $appt->doctorProfile?->user,
-                'specialty' => $appt->doctorProfile?->specialty,
-            ],
+                'doctor' => [
+                    'consultation_fee' => $appt->doctorProfile?->consultation_fee,
+                    'experience_years' => $appt->doctorProfile?->experience_years,
+                    'user' => $appt->doctorProfile?->user,
+                    'specialty' => $appt->doctorProfile?->specialty,
+                ],
 
-            'clinic_branch' => $appt->clinicBranch,
-        ];
-    });
+                'clinic_branch' => $appt->clinicBranch,
+            ];
+        });
 
-    return response()->json([
-        'success' => true,
-        'message' => 'OK',
-        'data' => $appointments
-    ]);
-}
-
-
+        return response()->json([
+            'success' => true,
+            'message' => 'OK',
+            'data' => $appointments
+        ]);
+    }
 
     public function cancel($id, Request $request)
     {
@@ -123,6 +146,7 @@ class AppointmentController extends Controller
                 'message' => 'Không thể hủy lịch này'
             ], 409);
         }
+
         AppointmentService::logStatus(
             $appointment,
             $request->user()->id,
@@ -175,7 +199,24 @@ class AppointmentController extends Controller
             );
         });
 
-        return ApiResponse::success($appointment->fresh(), 'Thanh toán đặt cọc thành công');
-    }
+        $appointment = $appointment->fresh()->load([
+            'doctorProfile.user:id,name,email'
+        ]);
 
+        try {
+            Mail::to($request->user()->email)->send(new AppointmentDepositPaidMail([
+                'patient_name' => $request->user()->name,
+                'appointment_code' => $appointment->appointment_code,
+                'doctor_name' => $appointment->doctorProfile?->user?->name ?? 'Doctor',
+                'date' => $appointment->date,
+                'start_time' => $appointment->start_time,
+                'end_time' => $appointment->end_time,
+                'status' => $appointment->status,
+            ]));
+        } catch (\Throwable $e) {
+            logger()->error("Send deposit mail failed: " . $e->getMessage());
+        }
+
+        return ApiResponse::success($appointment, 'Thanh toán đặt cọc thành công');
+    }
 }
